@@ -1,0 +1,104 @@
+import random
+#from replit import clear
+
+logo = """
+  ___  _  _  ____  ____  ____  __  __ _   ___       
+ / __)/ )( \(  __)/ ___)/ ___)(  )(  ( \ / __)      
+( (_ \) \/ ( ) _) \___ \\___ \ )( /    /( (_ \      
+ \___/\____/(____)(____/(____/(__)\_)__) \___/      
+              ___   __   _  _  ____                 
+             / __) / _\ ( \/ )(  __)                
+            ( (_ \/    \/ \/ \ ) _)                 
+             \___/\_/\_/\_)(_/(____)       
+
+"""
+
+def welcome():
+
+    def diff_select():
+
+        easy = 10
+        hard = 5
+    
+        prompt = input("Think you can guess it in 5 tries? 'y' or 'n'?  ")
+
+        if prompt == 'y':
+            print("Nice! Then you only get 5 tries to guess my number! \n")
+            return  hard
+        elif prompt == 'n':
+            print("Alright. Then you get 10 tries to guess my number. \n")
+            return easy
+        else:
+            print(f"\n '{prompt}' is not a valid response...\n")
+            return diff_select()
+
+    print(logo)
+    print("Welcome! I'm thinking of a number between 1 and 100!")
+    return diff_select()
+
+def main_game(diff):
+
+    guessing = True
+
+    num = random.randint(1,100) 
+
+    print("C'mon! Give it your best shot! ( ͡^ ͜ʖ ͡^) \n ")
+
+    def close(guess,num):
+        if abs(guess-num) <= 8:
+            return True
+        else: False
+    
+    def guess():
+        guess = int(input("Make a guess >> "))
+        return guess
+
+    def count_down(d):
+        if d == 0:
+            "This is you last chance!!\n"
+        else:
+            print(f"You have {d} trys left!\n")
+
+    def game_over(num):
+        print(f"My number was {num}! ¯\_( ͡ᵔ ͜ʖ ͡ᵔ)_/¯ ")
+        return False
+
+    while guessing:
+
+        my_guess = guess()
+
+        if diff == 1 and my_guess != num:
+            print("\nOh no! game over...")
+            guessing = game_over(num)
+        elif my_guess < num and close(my_guess,num):
+            diff -= 1
+            print("It's too low but really close!")
+            count_down(diff)
+        elif my_guess < num:
+            diff -= 1
+            print("Too low!")
+            count_down(diff)
+        elif my_guess > num and close(my_guess,num):
+            diff -= 1
+            print("It's too high but really close!")
+            count_down(diff)
+        elif my_guess > num:
+            diff -= 1
+            print("Too high!")
+            count_down(diff)
+        elif my_guess == num:
+            print(f"Nice! You got it! My number was {num}!\n")
+            guessing = False
+
+    replay = input("Wanna play again? 'y' or 'n' \n")
+    
+    if replay == 'y':
+        game()
+    else:
+        pass
+
+def game():
+    difficulty = welcome()
+    main_game(difficulty)
+
+game()
