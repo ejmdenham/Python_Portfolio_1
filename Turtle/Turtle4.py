@@ -2,7 +2,6 @@ import random
 import turtle
 from turtle import Turtle as t, Screen
 
-d = int(input("distance: "))
 tim = t()
 tim.shape("turtle")
 turtle.colormode(255)
@@ -27,7 +26,11 @@ def rand_walk():
     tim.setheading(random.choice(direction))
 
 
-for _ in range(d):
-    rand_walk()
+def act():
+    d = int(input("distance: "))
+    for _ in range(d):
+        rand_walk()
 
+
+act()
 screen.exitonclick()
